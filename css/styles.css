@@ -1,0 +1,269 @@
+/* ==========================================================================
+   Jomanah Alshammary - Portfolio Styles (Assignment 1)
+   1. Variables (light + dark theme)
+   2. Base & typography
+   3. Buttons, cards, badges, tags
+   ========================================================================== */
+
+/* Montserrat is served from this repository (assets/fonts) so the page makes
+   no requests to third-party servers. Variable font, latin subset, OFL licence. */
+@font-face {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("../assets/fonts/montserrat-latin.woff2") format("woff2");
+}
+
+/* 1. Variables ----------------------------------------------------------- */
+:root {
+  --font: "Montserrat", "Segoe UI", system-ui, -apple-system, sans-serif;
+
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #f4f4f4;
+  --text: #222222;
+  --text-muted: #6a6a6a;
+  --line: #e4e4e4;
+  --accent: #c47f0e;          /* amber used for labels and links (dark enough on white) */
+  --accent-hover: #a8690a;
+  --accent-soft: #fdf1dc;
+  --btn: #f5a623;             /* button fill */
+  --btn-hover: #e0951a;
+  --on-btn: #1a1a1a;
+  --band: #f4f4f4;            /* hero and footer background */
+  --on-band: #222222;
+  --on-band-muted: #6a6a6a;
+  --band-line: rgba(0, 0, 0, 0.08);
+  --success: #2e8b57;
+  --error: #c0392b;
+
+  --radius: 4px;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  --header-h: 70px;
+  --ease: cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* 2. Base ---------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 12px);
+}
+
+body {
+  font-family: var(--font);
+  font-size: 0.98rem;
+  line-height: 1.75;
+  color: var(--text);
+  background-color: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s var(--ease), color 0.3s var(--ease);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.2s var(--ease);
+}
+
+a:hover {
+  color: var(--accent-hover);
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.25;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 2rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+h3 {
+  font-size: 1.1rem;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Keep the hidden attribute working on elements that set their own display */
+[hidden] {
+  display: none !important;
+}
+
+.container {
+  width: min(100% - 2.5rem, 1140px);
+  margin: 0 auto;
+}
+
+.section {
+  padding: 5.5rem 0;
+}
+
+.section-alt {
+  background-color: var(--surface-2);
+}
+
+.section-title {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 3rem;
+}
+
+.section-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.6rem;
+}
+
+.section-title h2 {
+  margin-bottom: 0.9rem;
+}
+
+.section-title p {
+  color: var(--text-muted);
+}
+
+/* 3. Buttons, cards, badges, tags --------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 2rem;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.btn-primary {
+  background-color: var(--btn);
+  border-color: var(--btn);
+  color: var(--on-btn);
+}
+
+.btn-primary:hover {
+  background-color: var(--btn-hover);
+  border-color: var(--btn-hover);
+  color: var(--on-btn);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border-color: currentColor;
+  color: var(--text);
+}
+
+.btn-outline:hover {
+  background-color: var(--text);
+  border-color: var(--text);
+  color: var(--bg);
+}
+
+/* Outline buttons placed on the hero band */
+.hero .btn-outline {
+  color: var(--on-band);
+}
+
+.hero .btn-outline:hover {
+  background-color: var(--on-band);
+  border-color: var(--on-band);
+  color: var(--band);
+}
+
+.social-links a:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background-color: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.2s var(--ease), color 0.2s var(--ease);
+}
+
+.icon-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.card {
+  background-color: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+
+.badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.badge-accent {
+  color: var(--accent);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.9rem;
+}
+
+.tags li {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.tags li::before {
+  content: "#";
+  color: var(--accent);
+  margin-right: 1px;
+}
