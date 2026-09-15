@@ -6,6 +6,7 @@
    4. Header & navigation
    5. Hero
    6. Portfolio
+   7. Skills (service cards)
    ========================================================================== */
 
 /* Montserrat is served from this repository (assets/fonts) so the page makes
@@ -534,6 +535,42 @@ h3 {
   color: var(--text-muted);
   font-size: 0.88rem;
   margin-bottom: 0.9rem;
+}
+
+/* 7. Skills (service cards) ---------------------------------------------- */
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.service-card {
+  background-color: var(--surface-2);
+  border-radius: var(--radius);
+  padding: 2.25rem 1.6rem;
+  text-align: center;
+  transition: transform 0.25s var(--ease);
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+}
+
+.service-card svg {
+  color: var(--accent);
+  margin: 0 auto 1rem;
+}
+
+.service-card h3 {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.75rem;
+}
+
+.service-card p {
+  color: var(--text-muted);
+  font-size: 0.88rem;
 }
 
 button.project-media {
