@@ -7,6 +7,8 @@
    5. Hero
    6. Portfolio
    7. Skills (service cards)
+   8. Background (feature box)
+   9. Certificates
    ========================================================================== */
 
 /* Montserrat is served from this repository (assets/fonts) so the page makes
@@ -569,6 +571,75 @@ h3 {
 }
 
 .service-card p {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+}
+
+/* 8. Background (dark feature box) --------------------------------------- */
+.feature-box {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem 3rem;
+  background-color: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 3rem;
+}
+
+.feature-item {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 1.1rem;
+  align-items: start;
+}
+
+.feature-item svg {
+  color: var(--accent);
+  margin-top: 0.2rem;
+}
+
+.feature-item h3 {
+  font-size: 1rem;
+  margin-bottom: 0.35rem;
+}
+
+.feature-item p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* 9. Certificates ------------------------------------------------------- */
+.cert-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.cert-card {
+  padding: 1.75rem;
+}
+
+.cert-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+
+.cert-year {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.6rem;
+}
+
+.cert-card h3 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.cert-card p {
   color: var(--text-muted);
   font-size: 0.88rem;
 }
