@@ -6,6 +6,16 @@
   <title>Jomanah Alshammary | Integrated Design Student</title>
   <meta name="description" content="Portfolio of Jomanah Alshammary, an Integrated Design student at KFUPM focused on UI/UX design, 3D modeling and visualization, and interactive experiences.">
 
+  <!-- Apply the saved theme before the page paints so there is no flash -->
+  <script>
+    (function () {
+      var saved = localStorage.getItem('theme');
+      if (saved === 'dark' || saved === 'light') {
+        document.documentElement.setAttribute('data-theme', saved);
+      }
+    })();
+  </script>
+
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -304,5 +314,7 @@
       <p>&copy; <span id="year"></span> Jomanah Alshammary &mdash; Integrated Design Student.</p>
     </div>
   </footer>
+
+  <script src="js/script.js"></script>
 </body>
 </html>

@@ -26,6 +26,9 @@
 
 /* 1. Variables ----------------------------------------------------------- */
 :root {
+  /* Native widgets (dropdown lists, scrollbars) follow the theme */
+  color-scheme: light;
+
   --font: "Montserrat", "Segoe UI", system-ui, -apple-system, sans-serif;
 
   --bg: #ffffff;
@@ -51,6 +54,45 @@
   --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   --header-h: 70px;
   --ease: cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #111111;
+  --surface: #1a1a1a;
+  --surface-2: #171717;
+  --text: #f1f1f1;
+  --text-muted: #a3a3a3;
+  --line: #2b2b2b;
+  --accent: #f5a623;
+  --accent-hover: #ffb84d;
+  --accent-soft: #2a2213;
+  --band: #0d0d0d;
+  --on-band: #f4f4f4;
+  --on-band-muted: #a9a9a9;
+  --band-line: rgba(255, 255, 255, 0.1);
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+/* Follow the system preference until the visitor picks a theme */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #111111;
+    --surface: #1a1a1a;
+    --surface-2: #171717;
+    --text: #f1f1f1;
+    --text-muted: #a3a3a3;
+    --line: #2b2b2b;
+    --accent: #f5a623;
+    --accent-hover: #ffb84d;
+    --accent-soft: #2a2213;
+    --band: #0d0d0d;
+    --on-band: #f4f4f4;
+    --on-band-muted: #a9a9a9;
+    --band-line: rgba(255, 255, 255, 0.1);
+    --shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  }
 }
 
 /* 2. Base ---------------------------------------------------------------- */
@@ -355,6 +397,24 @@ h3 {
 
 .icon-moon {
   display: none;
+}
+
+[data-theme="dark"] .icon-sun {
+  display: none;
+}
+
+[data-theme="dark"] .icon-moon {
+  display: block;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .icon-sun {
+    display: none;
+  }
+
+  :root:not([data-theme="light"]) .icon-moon {
+    display: block;
+  }
 }
 
 .menu-btn {
