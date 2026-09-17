@@ -11,6 +11,7 @@
    9. Certificates
    10. Contact
    11. Footer
+   12. Responsive
    ========================================================================== */
 
 /* Montserrat is served from this repository (assets/fonts) so the page makes
@@ -773,6 +774,66 @@ h3 {
   width: 36px;
   height: 36px;
   color: var(--on-band-muted);
+}
+
+/* 12. Responsive --------------------------------------------------------- */
+@media (max-width: 992px) {
+  .nav-list {
+    gap: 1.4rem;
+  }
+
+  .project-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .service-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cert-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 4rem 0;
+  }
+
+  .hero {
+    padding: 5rem 0 4.5rem;
+  }
+
+  h2 {
+    font-size: 1.6rem;
+  }
+
+  .project-grid,
+  .service-grid,
+  .cert-grid,
+  .feature-box {
+    grid-template-columns: 1fr;
+  }
+
+  .feature-box {
+    padding: 2rem 1.5rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-buttons .btn {
+    width: 100%;
+  }
 }
 
 button.project-media {
