@@ -3,6 +3,8 @@
    1. Dark / light theme toggle (saved in localStorage)
    2. Mobile navigation
    3. Typing effect for the hero title
+   4. Contact form feedback (no backend)
+   5. Footer year
    ========================================================================== */
 
 (function () {
@@ -100,4 +102,44 @@
 
     setTimeout(typeNext, 400);
   }
+
+  /* ------------------------------------------------------------------
+     4. Contact form
+     No backend for this assignment: check the fields are filled in and
+     the email looks valid, then show a confirmation message.
+     ------------------------------------------------------------------ */
+  var form = document.getElementById('contact-form');
+  var status = document.getElementById('form-status');
+
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    var name = form.elements.name.value.trim();
+    var email = form.elements.email.value.trim();
+    var message = form.elements.message.value.trim();
+
+    status.classList.remove('is-success', 'is-error');
+
+    if (!name || !email || !message) {
+      status.textContent = 'Please fill in your name, email and message before sending.';
+      status.classList.add('is-error');
+      return;
+    }
+
+    // Simple shape check: something@something.something
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      status.textContent = 'Please enter a valid email address.';
+      status.classList.add('is-error');
+      return;
+    }
+
+    status.textContent = 'Thank you, ' + name + '! Your message has been received. I will get back to you at ' + email + '.';
+    status.classList.add('is-success');
+    form.reset();
+  });
+
+  /* ------------------------------------------------------------------
+     5. Footer year
+     ------------------------------------------------------------------ */
+  document.getElementById('year').textContent = new Date().getFullYear();
 })();
