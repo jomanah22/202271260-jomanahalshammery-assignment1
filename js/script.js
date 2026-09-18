@@ -1,6 +1,7 @@
 /* ==========================================================================
    Jomanah Alshammary - Portfolio Scripts (Assignment 1)
    1. Dark / light theme toggle (saved in localStorage)
+   2. Mobile navigation
    ========================================================================== */
 
 (function () {
@@ -40,4 +41,34 @@
   });
 
   updateThemeLabel();
+
+  /* ------------------------------------------------------------------
+     2. Mobile navigation
+     ------------------------------------------------------------------ */
+  var menuToggle = document.getElementById('menu-toggle');
+  var nav = document.getElementById('site-nav');
+
+  function setMenu(open) {
+    nav.classList.toggle('is-open', open);
+    menuToggle.setAttribute('aria-expanded', String(open));
+    menuToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  }
+
+  menuToggle.addEventListener('click', function () {
+    setMenu(!nav.classList.contains('is-open'));
+  });
+
+  // Close the menu after a link is chosen so the section is visible
+  nav.addEventListener('click', function (event) {
+    if (event.target.tagName === 'A') {
+      setMenu(false);
+    }
+  });
+
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape' && nav.classList.contains('is-open')) {
+      setMenu(false);
+      menuToggle.focus();
+    }
+  });
 })();
