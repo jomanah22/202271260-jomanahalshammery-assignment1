@@ -2,6 +2,7 @@
    Jomanah Alshammary - Portfolio Scripts (Assignment 1)
    1. Dark / light theme toggle (saved in localStorage)
    2. Mobile navigation
+   3. Typing effect for the hero title
    ========================================================================== */
 
 (function () {
@@ -71,4 +72,32 @@
       menuToggle.focus();
     }
   });
+
+  /* ------------------------------------------------------------------
+     3. Typing effect
+     Types the hero title one character at a time, then keeps a
+     blinking cursor. The full text stays in the markup so the page
+     reads correctly without JavaScript and for screen readers.
+     ------------------------------------------------------------------ */
+  var heroTitle = document.getElementById('hero-title');
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (heroTitle && !reduceMotion) {
+    var fullText = heroTitle.textContent.trim();
+    var index = 0;
+
+    heroTitle.setAttribute('aria-label', fullText);
+    heroTitle.textContent = '';
+    heroTitle.classList.add('is-typing');
+
+    function typeNext() {
+      heroTitle.textContent = fullText.slice(0, index + 1);
+      index += 1;
+      if (index < fullText.length) {
+        setTimeout(typeNext, 80);
+      }
+    }
+
+    setTimeout(typeNext, 400);
+  }
 })();
