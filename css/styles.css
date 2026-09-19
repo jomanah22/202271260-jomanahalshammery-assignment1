@@ -954,6 +954,12 @@ h3 {
   }
 }
 
+/* ==========================================================================
+   13. Project image viewer (lightbox)
+   A project cover is a <button>, so it can be opened with the keyboard, and
+   the picture is shown in a native <dialog>. showModal() gives the backdrop,
+   the focus trap and Escape-to-close without extra script.
+   ========================================================================== */
 button.project-media {
   display: block;
   width: 100%;
@@ -964,4 +970,136 @@ button.project-media {
 
 button.project-media:focus-visible {
   outline-offset: 4px;
+}
+
+.lightbox {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  overflow: hidden;
+}
+
+.lightbox::backdrop {
+  background-color: rgba(12, 11, 9, 0.85);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.lightbox[open] {
+  display: grid;
+  place-items: center;
+  animation: lightbox-fade 0.2s var(--ease) both;
+}
+
+@keyframes lightbox-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.lightbox-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: min(100% - 2rem, 1200px);
+  max-height: calc(100vh - 2rem);
+  max-height: calc(100dvh - 2rem);
+}
+
+.lightbox-figure {
+  margin: 0;
+  min-width: 0;
+  display: grid;
+  gap: 0.85rem;
+  justify-items: center;
+  animation: lightbox-rise 0.3s var(--ease) both;
+}
+
+@keyframes lightbox-rise {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+
+.lightbox-figure img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: calc(100vh - 9rem);
+  max-height: calc(100dvh - 9rem);
+  border-radius: var(--radius);
+  background-color: var(--surface-2);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.55);
+}
+
+.lightbox-caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.5rem 1rem;
+  color: #f2f2f2;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.lightbox-position {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: rgba(242, 242, 242, 0.7);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+}
+
+.lightbox-arrow {
+  flex: 0 0 auto;
+}
+
+/* .icon-btn sets a display, so [hidden] needs saying again to win */
+.lightbox-arrow[hidden] {
+  display: none;
+}
+
+/* Locks the page behind the viewer so only the picture scrolls into view */
+body.has-lightbox {
+  overflow: hidden;
+}
+
+@media (max-width: 720px) {
+  /* Too narrow to seat the arrows beside the picture, so they float over it
+     and the picture takes the full width instead */
+  .lightbox-inner {
+    display: block;
+  }
+
+  .lightbox-arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    transform: translateY(-50%);
+  }
+
+  .lightbox-prev {
+    left: 0;
+  }
+
+  .lightbox-next {
+    right: 0;
+  }
+
+  .lightbox-figure img {
+    max-height: calc(100vh - 11rem);
+    max-height: calc(100dvh - 11rem);
+  }
 }

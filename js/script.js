@@ -5,6 +5,7 @@
    3. Typing effect for the hero title
    4. Contact form feedback (no backend)
    5. Footer year
+   6. Project image viewer (lightbox)
    ========================================================================== */
 
 (function () {
@@ -142,4 +143,106 @@
      5. Footer year
      ------------------------------------------------------------------ */
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  /* ------------------------------------------------------------------
+     6. Project image viewer
+     Each project cover is a button. Clicking it shows that picture full
+     size in a native <dialog>: showModal() gives the backdrop, the focus
+     trap and Escape to close. On top of that we add the caption, previous
+     / next (buttons and the arrow keys), a click outside the picture to
+     close, and returning focus to the cover that opened the viewer.
+     ------------------------------------------------------------------ */
+  var lightbox = document.getElementById('lightbox');
+  var lightboxImage = document.getElementById('lightbox-image');
+  var lightboxTitle = document.getElementById('lightbox-title');
+  var lightboxPosition = document.getElementById('lightbox-position');
+  var lightboxPrev = document.getElementById('lightbox-prev');
+  var lightboxNext = document.getElementById('lightbox-next');
+  var covers = [];
+  var coverIndex = 0;
+  var openedFrom = null;
+
+  function coverTitle(button) {
+    var card = button.closest('.project-card');
+    var heading = card ? card.querySelector('h3') : null;
+    return heading ? heading.textContent.trim() : '';
+  }
+
+  function showCover(index) {
+    if (!covers.length) {
+      return;
+    }
+    // Wrap around, so the arrows never dead-end
+    coverIndex = (index + covers.length) % covers.length;
+
+    var button = covers[coverIndex];
+    var image = button.querySelector('img');
+    var title = coverTitle(button);
+
+    lightboxImage.src = image.currentSrc || image.src;
+    lightboxImage.alt = title ? 'Cover image for ' + title : '';
+    lightboxTitle.textContent = title;
+    lightboxPosition.textContent = (coverIndex + 1) + ' of ' + covers.length;
+
+    // One picture on its own needs no navigation
+    var single = covers.length < 2;
+    lightboxPrev.hidden = single;
+    lightboxNext.hidden = single;
+  }
+
+  function openLightbox(button) {
+    covers = Array.prototype.slice.call(document.querySelectorAll('.project-media'));
+    var index = covers.indexOf(button);
+    if (index === -1) {
+      return;
+    }
+    openedFrom = button;
+    showCover(index);
+    if (!lightbox.open) {
+      lightbox.showModal();
+      document.body.classList.add('has-lightbox');
+    }
+  }
+
+  document.querySelector('.project-grid').addEventListener('click', function (event) {
+    var button = event.target.closest('.project-media');
+    if (button) {
+      openLightbox(button);
+    }
+  });
+
+  document.getElementById('lightbox-close').addEventListener('click', function () {
+    lightbox.close();
+  });
+  lightboxPrev.addEventListener('click', function () { showCover(coverIndex - 1); });
+  lightboxNext.addEventListener('click', function () { showCover(coverIndex + 1); });
+
+  // Anything outside the picture itself is backdrop, so a click there closes
+  lightbox.addEventListener('click', function (event) {
+    var target = event.target;
+    if (
+      target === lightbox ||
+      target.classList.contains('lightbox-inner') ||
+      target.classList.contains('lightbox-figure')
+    ) {
+      lightbox.close();
+    }
+  });
+
+  lightbox.addEventListener('keydown', function (event) {
+    if (event.key === 'ArrowLeft') {
+      showCover(coverIndex - 1);
+    }
+    if (event.key === 'ArrowRight') {
+      showCover(coverIndex + 1);
+    }
+  });
+
+  lightbox.addEventListener('close', function () {
+    document.body.classList.remove('has-lightbox');
+    if (openedFrom && document.body.contains(openedFrom)) {
+      openedFrom.focus();
+    }
+    openedFrom = null;
+  });
 })();
